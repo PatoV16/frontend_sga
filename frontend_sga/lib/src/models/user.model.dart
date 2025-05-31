@@ -1,41 +1,47 @@
 class User {
-  final int id;
+  final int? id;
   final String name;
   final String email;
   final String password;
+  final String? avatar;
   final bool isActive;
-  final DateTime createdAt;
+  final List<int> roleIds;
+  final List<int> permissionIds;
 
   User({
-    required this.id,
+    this.id,
     required this.name,
     required this.email,
     required this.password,
-    required this.isActive,
-    required this.createdAt,
+    this.avatar,
+    this.isActive = true,
+    this.roleIds = const [],
+    this.permissionIds = const [],
   });
 
-  // Factory constructor para crear un User desde JSON
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
       id: json['id'],
       name: json['name'],
       email: json['email'],
-      password: json['password'],
-      isActive: json['isActive'],
-      createdAt: DateTime.parse(json['createdAt']),
+      password: '', // Nunca viene del backend
+      avatar: json['avatar'],
+      isActive: json['isActive'] ?? true,
+      roleIds: (json['roles'] as List?)?.map((r) => r['id'] as int).toList() ?? [],
+      permissionIds:
+          (json['permissions'] as List?)?.map((p) => p['id'] as int).toList() ?? [],
     );
   }
 
-  // Método para convertir User a JSON
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'name': name,
       'email': email,
       'password': password,
+      if (avatar != null) 'avatar': avatar,
       'isActive': isActive,
-      'createdAt': createdAt.toIso8601String(),
+      'roleIds': roleIds,
+      'permissionIds': permissionIds,
     };
   }
 }

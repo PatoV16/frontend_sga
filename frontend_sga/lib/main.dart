@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_sga/src/screen/dasborad/adminDashboard.screen.dart';
 import 'package:frontend_sga/src/screen/login/login.secreen.dart';
 import 'package:frontend_sga/src/screen/user/user.list.dart';
 import 'package:frontend_sga/src/screen/user/user.screen.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: LoginScreen(),
+      home: DashboardPage(),
     );
   }
 }

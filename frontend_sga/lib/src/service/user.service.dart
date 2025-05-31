@@ -42,18 +42,19 @@ class UserService {
   }
 
   Future<User> updateUser(int id, User user) async {
-    final response = await http.put(
-      Uri.parse('$baseUrl/users/$id'),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode(user.toJson()),
-    );
+  final response = await http.patch(
+    Uri.parse('$baseUrl/users/$id'),
+    headers: {'Content-Type': 'application/json'},
+    body: jsonEncode(user.toJson()),
+  );
 
-    if (response.statusCode == 200) {
-      return User.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Error al actualizar usuario');
-    }
+  if (response.statusCode == 200) {
+    return User.fromJson(jsonDecode(response.body));
+  } else {
+    throw Exception('Error al actualizar usuario');
   }
+}
+
 
   Future<void> deleteUser(int id) async {
     final response = await http.delete(Uri.parse('$baseUrl/users/$id'));
